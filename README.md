@@ -290,3 +290,4 @@ Quickfix and diagnostics.
 `leader + j` - move to the next quicklist item.
 
 In visual selection mode `leader + p` - replace selection with clipboard content and preserve the clipboard.
+
