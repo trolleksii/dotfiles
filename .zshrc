@@ -1,5 +1,5 @@
 PATH=$HOME/go/bin:$HOME/.local/bin:$HOME/.local/nodejs/bin:/usr/local/bin:$PATH
-PROJECTS="$HOME/Projects/code"
+PROJECTS_DIR="$HOME/Projects/code"
 DEFAULT_USER="trolleksii"
 ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="cobalt2"
