@@ -1,4 +1,6 @@
 local builtin = require('telescope.builtin')
+local actions = require('telescope.actions')
+
 require('telescope').setup({
     defaults = {
         file_ignore_patterns = {
@@ -6,7 +8,8 @@ require('telescope').setup({
             '*.zip', '*.tar.gz', '*.tar.bz2', '*.rar', '*.7z', '*.iso', '*.tmp',
             '*.exe', '*.dll', '*.obj', '*.o', '*.a', '*.lib', '*.so', '*.dmg',
             '*.jpg', '*.jpeg', '*.png', '*.gif', '*.bmp', '*.tiff', '*.ico',
-            '.terraform/', '.terraform.*', '.venv'
+            '.terraform/', '.terraform.*', '.venv',
+            'My Drive/', 'Movies', 'Desktop', 'Library'
         },
         vimgrep_arguments = {
             'rg', '--color=never', '--no-heading', '--with-filename', '--line-number', '--column', '--smart-case',
@@ -18,15 +21,16 @@ require('telescope').setup({
                     require("telescope.actions").send_selected_to_qflist(p_bufnr)
                     vim.cmd.cfdo("edit")
                 end,
+                ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
             },
         }
     },
     extensions = {
         fzf = {
             fuzzy = true,
-            override_generic_sorter = false, -- override the generic sorter
-            override_file_sorter = true,     -- override the file sorter
-            case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+            override_generic_sorter = true, -- override the generic sorter
+            override_file_sorter = true,    -- override the file sorter
+            case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
         }
     }
 })

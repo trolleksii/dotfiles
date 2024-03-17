@@ -1,4 +1,4 @@
 require("trolleksii/remap")
 require("trolleksii/options")
-require("trolleksii/packer")
-
+require("trolleksii/lazy")
+--require("trolleksii/packer")
