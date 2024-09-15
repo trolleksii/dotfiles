@@ -1,0 +1,14 @@
+#!/bin/bash
+
+certificate=$(mktemp /tmp/cert.XXXXXX)
+host_regex="^[a-z0-9.-]+:[0-9]+$"
+
+if [ -z "$1" ]; then
+    cat > $certificate <&0
+elif [[ $1 =~ $host_regex ]]; then
+    openssl x509 -text -noout -in <(openssl s_client -connect "$1" < /dev/null)
+    exit 0
+else
+    certificate=$1
+fi
+openssl x509 -text -noout -in $certificate

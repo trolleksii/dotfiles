@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+branch=$1
+
+if [[ $branch == "" ]]; then
+  branch="$(git branch | fzf)"
+fi
+
+git checkout $branch

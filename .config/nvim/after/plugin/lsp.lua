@@ -100,7 +100,9 @@ require('mason-lspconfig').setup({
         end,
         terraformls = function()
             require('lspconfig').terraformls.setup({
-                capabilities = lsp_capabilities
+                capabilities = lsp_capabilities,
+                settings = {
+                }
             })
         end,
     },

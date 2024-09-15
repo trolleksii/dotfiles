@@ -28,8 +28,14 @@ require('lazy').setup({
         'nvim-lualine/lualine.nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
     },
-    { 'nvim-treesitter/nvim-treesitter',  build = ':TSUpdate' },
-    'nvim-treesitter/nvim-treesitter-context',
+    {
+        'nvim-treesitter/nvim-treesitter',
+        build = ':TSUpdate',
+        dependencies = {
+            'nvim-treesitter/nvim-treesitter-context',
+            'nvim-treesitter/nvim-treesitter-textobjects',
+        }
+    },
     'theprimeagen/harpoon',
     'mbbill/undotree',
     { 'VonHeikemen/lsp-zero.nvim',        branch = 'v3.x' },
@@ -62,6 +68,10 @@ require('lazy').setup({
         }
     },
     'folke/trouble.nvim',
+    {
+        "folke/zen-mode.nvim",
+        opts = {}
+    },
     { 'towolf/vim-helm', ft = { 'helm' } },
     'github/copilot.vim',
 })

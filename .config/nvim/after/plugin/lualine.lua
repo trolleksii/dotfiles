@@ -18,7 +18,7 @@ require('lualine').setup({
         lualine_b = { 'filename' },
         lualine_c = { 'branch', 'diff', 'diagnostics' },
         lualine_x = {},
-        lualine_y = {},
+        lualine_y = { 'filetype' },
         lualine_z = { 'progress' }
     },
 })

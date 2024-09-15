@@ -40,7 +40,7 @@ vim.wo.signcolumn = 'yes'
 
 -- Decrease update time
 vim.opt.updatetime = 250
-vim.opt.timeoutlen = 300
+vim.opt.timeoutlen = 1000
 
 -- Set completeopt to have a better completion experience
 vim.opt.completeopt = 'menuone,noselect'
@@ -51,3 +51,9 @@ vim.opt.termguicolors = true
 vim.opt.scrolloff = 3
 
 vim.opt.fillchars = { eob = " " }
+
+--vim.opt.foldmethod = 'indent'
+vim.opt.foldlevel = 99
+
+vim.opt.foldmethod = 'expr'
+vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'

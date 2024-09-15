@@ -18,11 +18,24 @@ require 'nvim-treesitter.configs'.setup {
     ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
     -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
 
+    -- check out the treesitter-textobjects
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            init_selection = "<M-space>",
+            node_incremental = "<space>",
+            node_decremental = "<bs>",
+            scope_incremental = false,
+        },
+    },
     highlight = {
         enable = true,
 
         -- e.g. to disable slow treesitter highlight for large files
-        disable = function(_, buf)
+        disable = function(lang, buf)
+            if lang == "terraform" then
+                return true
+            end
             local max_filesize = 100 * 1024 -- 100 KB
             local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
             if ok and stats and stats.size > max_filesize then
@@ -35,6 +48,65 @@ require 'nvim-treesitter.configs'.setup {
         -- Using this option may slow down your editor, and you may see some duplicate highlights.
         -- Instead of true it can also be a list of languages
         additional_vim_regex_highlighting = false,
+    },
+    textobjects = {
+        move = {
+            enable = true,
+            set_jumps = true, -- whether to set jumps in the jumplist
+            goto_next_start = {
+                ["]f"] = "@function.outer",
+                ["]c"] = "@class.outer",
+                ["]l"] = "@loop.outer",
+                ["]]"] = "@assignment.*",
+            },
+            goto_previous_start = {
+                ["[f"] = "@function.outer",
+                ["[c"] = "@class.outer",
+                ["[l"] = "@loop.outer",
+                ["[["] = "@assignment.*",
+            },
+        },
+        select = {
+            enable = true,
+            lookahead = true,
+            keymaps = {
+                -- You can use the capture groups defined in textobjects.scm
+                ["la"] = "@assignment.lhs",
+                ["ra"] = "@assignment.rhs",
+
+                ["aa"] = "@parameter.outer",
+                ["ia"] = "@parameter.inner",
+
+                ["af"] = "@function.outer",
+                ["if"] = "@function.inner",
+
+                ["al"] = "@loop.outer",
+                ["il"] = "@loop.inner",
+
+                ["ai"] = "@conditional.outer",
+                ["ii"] = "@conditional.inner",
+
+                ["ab"] = "@block.outer",
+                ["ib"] = "@block.inner",
+
+                ["ti"] = "@block.id",   -- terraform resource id
+                ["tt"] = "@block.type", -- terraform resource type
+                ["tn"] = "@block.name", -- terraform resource name
+
+                ["am"] = "@call.outer",
+                ["im"] = "@call.inner",
+
+                ["ac"] = "@class.outer",
+                ["ic"] = "@class.inner",
+
+                ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
+            },
+            selection_modes = {
+                ['@parameter.outer'] = 'v', -- charwise
+                ['@function.outer'] = 'V',  -- linewise
+                ['@class.outer'] = '<c-v>', -- blockwise
+            },
+        }
     },
 }
 

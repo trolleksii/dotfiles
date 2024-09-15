@@ -6,10 +6,12 @@ end)
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
+vim.keymap.set("n", "J", "mzJ`z")
+
 vim.keymap.set("x", "<leader>p", "\"_dp")
 
-vim.keymap.set("n", "<leader>k", "<cmd>cnext<CR>", { silent = true })
-vim.keymap.set("n", "<leader>j", "<cmd>cprev<CR>", { silent = true })
+vim.keymap.set("n", "<leader>j", "<cmd>cnext<CR>", { silent = true })
+vim.keymap.set("n", "<leader>k", "<cmd>cprev<CR>", { silent = true })
 
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
@@ -24,6 +26,3 @@ vim.keymap.set("n", "<leader>pb", "<cmd>:bp<CR>", { silent = true })
 
 vim.keymap.set("n", "<M-Up>", "<C-Y>")
 vim.keymap.set("n", "<M-Down>", "<C-E>")
-
-vim.keymap.set("n", "<leader>cl", "<cmd>:gitffget //2<CR>", { silent = true })
-vim.keymap.set("n", "<leader>cr", "<cmd>:gitffget //3<CR>", { silent = true })

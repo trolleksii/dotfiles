@@ -8,7 +8,15 @@ require("catppuccin").setup({
         shade = "dark",
         percentage = 0.15, -- percentage of the shade to apply to the inactive window
     },
+
+    color_overrides = {
+        all = {
+            surface1 = "#6e738d", --line numbers
+            overlay0 = "#6e738d", --comments
+        }
+    }
 })
 
+vim.o.termguicolors = true
 -- setup must be called before loading
 vim.cmd.colorscheme "catppuccin"

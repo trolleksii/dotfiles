@@ -1,0 +1,16 @@
+[user]
+	name = Oleksii Troian
+	email = otroian@estee.com
+[pull]
+	rebase = false
+[push]
+	autoSetupRemote = true
+[column]
+	ui = auto
+	branch = auto
+[branch]
+	sort = -committerdate
+[credential]
+	helper = osxkeychain
+[url "ssh://git@github.com/"]
+    insteadOf = https://github.com/
