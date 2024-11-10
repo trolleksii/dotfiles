@@ -21,8 +21,8 @@ vim.keymap.set("n", "<leader>f", "<cmd>!tmux neww tmux-sessionizer<CR>", { silen
 vim.keymap.set("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
 
 vim.keymap.set("n", "<leader>qq", "<cmd>:bw<CR>", { silent = true })
-vim.keymap.set("n", "<leader>nb", "<cmd>:bn<CR>", { silent = true })
-vim.keymap.set("n", "<leader>pb", "<cmd>:bp<CR>", { silent = true })
+vim.keymap.set("n", "<leader>ht", "<cmd>:bn<CR>", { silent = true })
+vim.keymap.set("n", "<leader>th", "<cmd>:bp<CR>", { silent = true })
 
 vim.keymap.set("n", "<M-Up>", "<C-Y>")
 vim.keymap.set("n", "<M-Down>", "<C-E>")

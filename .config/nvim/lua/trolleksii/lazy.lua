@@ -60,7 +60,7 @@ require('lazy').setup({
         'folke/noice.nvim',
         event = 'VeryLazy',
         opts = {
-            background_colour = '#000000'
+            background_colour = '#000000',
         },
         dependencies = {
             'MunifTanjim/nui.nvim',
@@ -73,5 +73,13 @@ require('lazy').setup({
         opts = {}
     },
     { 'towolf/vim-helm', ft = { 'helm' } },
+    {
+        'sudormrfbin/cheatsheet.nvim',
+        dependencies = {
+            { 'nvim-telescope/telescope.nvim' },
+            { 'nvim-lua/popup.nvim' },
+            { 'nvim-lua/plenary.nvim' },
+        }
+    },
     'github/copilot.vim',
 })
