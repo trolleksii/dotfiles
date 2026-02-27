@@ -1,10 +1,6 @@
 # Installation
 
-For Mac with Homebrew. Linux instructions are similar.
-
-## Git
-
-If you still don't have git installed
+For Mac with Homebrew.
 
 ```SH
 brew install --cask nikitabobko/tap/aerospace # window manager
