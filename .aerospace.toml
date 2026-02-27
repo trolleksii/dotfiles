@@ -1,0 +1,85 @@
+after-login-command = []
+after-startup-command = []
+start-at-login = true
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+accordion-padding = 30
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+automatically-unhide-macos-hidden-apps = false
+[key-mapping]
+    preset = 'qwerty'
+[gaps]
+    inner.horizontal = 10
+    inner.vertical =   10
+    outer.left =       20
+    outer.bottom =     20
+    outer.top =        0
+    outer.right =      20
+# values work as regex matches
+[workspace-to-monitor-force-assignment]
+    S = ['built-in', 'VX3418']         # slack
+    Z = ['Dell', 'VX3418', 'built-in'] # zoom
+    T = ['VX3418', 'built-in']         # terminal
+    B = ['Dell', 'VX3418', 'built-in'] # browser
+    A = ['VX3418', 'built-in']         # ai
+[mode.main.binding]
+    cmd-alt-slash = 'layout tiles horizontal vertical'
+    cmd-alt-comma = 'layout accordion horizontal vertical'
+    cmd-alt-n = 'focus left'
+    cmd-alt-e = 'focus down'
+    cmd-alt-o = 'focus up'
+    cmd-alt-i = 'focus right'
+    cmd-alt-f = 'fullscreen'
+    cmd-alt-shift-n = 'move left'
+    cmd-alt-shift-e = 'move down'
+    cmd-alt-shift-o = 'move up'
+    cmd-alt-shift-i = 'move right'
+    cmd-alt-minus = 'resize smart -50'
+    cmd-alt-equal = 'resize smart +50'
+    cmd-alt-z = 'workspace S' # slack
+    cmd-alt-t = 'workspace T' # terminal
+    cmd-alt-s = 'workspace B' # browser
+    cmd-alt-b = 'workspace A' # ai
+    cmd-alt-a = 'workspace Z' # zoom
+    cmd-alt-ctrl-z = 'move-node-to-workspace S' # slack
+    cmd-alt-ctrl-t = 'move-node-to-workspace T' # terminal
+    cmd-alt-ctrl-s = 'move-node-to-workspace B' # browser
+    cmd-alt-ctrl-b = 'move-node-to-workspace A' # ai
+    cmd-alt-ctrl-a = 'move-node-to-workspace Z' # zoom
+    cmd-tab = 'workspace-back-and-forth'
+    cmd-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+    cmd-shift-semicolon = 'mode service'
+[mode.service.binding]
+    esc = ['reload-config', 'mode main']
+    r = ['flatten-workspace-tree', 'mode main'] # reset layout
+    f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
+    tab = 'move-workspace-to-monitor --wrap-around next'
+    backspace = ['close-all-windows-but-current', 'mode main']
+    cmd-shift-h = ['join-with left', 'mode main']
+    cmd-shift-j = ['join-with down', 'mode main']
+    cmd-shift-k = ['join-with up', 'mode main']
+    cmd-shift-l = ['join-with right', 'mode main']
+    down = 'volume down'
+    up = 'volume up'
+    shift-down = ['volume set 0', 'mode main']
+# to get the app-id use terminal command `defaults read /Applications/Slack.app/Contents/Info.plist CFBundleIdentifier`
+[[on-window-detected]]
+  if.app-id = 'com.tinyspeck.slackmacgap'
+  run = 'move-node-to-workspace S'
+[[on-window-detected]]
+  if.app-id = 'us.zoom.xos'
+  run = 'move-node-to-workspace Z'
+[[on-window-detected]]
+  if.app-id = 'net.kovidgoyal.kitty'
+  run = 'move-node-to-workspace T'
+[[on-window-detected]]
+  if.app-id = 'com.brave.Browser'
+  run = 'move-node-to-workspace B'
+[[on-window-detected]]
+  if.app-id = 'com.anthropic.claudefordesktop'
+  run = 'move-node-to-workspace A'
+[[on-window-detected]]
+  if.app-id = 'com.openai.chat'
+  run = 'move-node-to-workspace A'

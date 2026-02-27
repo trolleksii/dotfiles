@@ -1,11 +1,9 @@
-[user]
-	name = Oleksii Troian
-	email = otroian@estee.com
 [pull]
 	rebase = false
-#
 [push]
 	autoSetupRemote = true
+[merge]
+    conflictStyle = zdiff3
 [column]
 	ui = auto
 	branch = auto
@@ -15,3 +13,18 @@
 	helper = osxkeychain
 [url "ssh://git@github.com/"]
     insteadOf = https://github.com/
+[core]
+	pager = delta
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+	side-by-side = true
+    navigate = true
+    dark = true
+    line-numbers-minus-style = "#e0def4"
+    line-numbers-plus-style = "#e0def4"
+    line-numbers-zero-style = "#6e6a86"
+[includeIf "gitdir:~/projects/code/work/"]
+  path = ~/.gitconfig-work
+[includeIf "gitdir:~/projects/code/personal/"]
+  path = ~/.gitconfig-personal

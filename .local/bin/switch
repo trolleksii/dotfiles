@@ -1,9 +1,0 @@
-if [ -z "$1" ]; then
-    echo "Usage:"
-    echo "$0 <ssh_key_name>"
-    exit 1
-fi
-
-ssh-add -D
-ssh-add ~/.ssh/$1
-git config --global user.email "otroian@${1}"

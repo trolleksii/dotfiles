@@ -1,8 +1,32 @@
-local lsp_zero = require('lsp-zero')
+local cmp = require('cmp')
 
-vim.keymap.set('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
-vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
-vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
+cmp.setup({
+    sources = cmp.config.sources({
+        { name = 'nvim_lsp' },
+        { name = 'luasnip', priority = 900, group_index = 2 },
+    }, {
+        { name = 'buffer' },
+    }),
+    mapping = cmp.mapping.preset.insert({
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+        ['<C-e>'] = cmp.mapping.abort(),
+        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    }),
+    snippet = {
+        expand = function(args)
+            vim.snippet.expand(args.body)
+        end,
+    },
+})
+
+local lspconfig_defaults = require('lspconfig').util.default_config
+lspconfig_defaults.capabilities = vim.tbl_deep_extend(
+    'force',
+    lspconfig_defaults.capabilities,
+    require('cmp_nvim_lsp').default_capabilities()
+)
 
 vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP actions',
@@ -24,29 +48,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
 })
 
-lsp_zero.on_attach(function(_, bufnr)
-    lsp_zero.default_keymaps({ buffer = bufnr })
-end)
-
-lsp_zero.format_on_save({
-    format_opts = {
-        async = false,
-        timeout_ms = 5000,
-    },
-    servers = {
-        ['lua_ls'] = 'lua',
-        ['terraformls'] = 'terraform',
-        ['gopls'] = 'go',
-        ['jedi_language_server'] = 'python',
-        ['elixirls'] = 'elixir',
-    }
-})
-
-local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+vim.keymap.set('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
+vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
+vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
 
 local default_setup = function(server)
     require('lspconfig')[server].setup({
-        capabilities = lsp_capabilities,
+        capabilities = lspconfig_defaults,
     })
 end
 
@@ -54,13 +62,13 @@ require('mason').setup({})
 require('mason-lspconfig').setup({
     ensure_installed = {
         'gopls', 'dockerls', 'bashls', 'helm_ls', 'jsonls', 'lua_ls',
-        'jedi_language_server', 'terraformls', 'elixirls'
+        'pyright', 'terraformls', 'elixirls'
     },
     handlers = {
         default_setup,
         lua_ls = function()
             local lua_opts = {
-                capabilities = lsp_capabilities,
+                capabilities = lspconfig_defaults,
                 settings = {
                     Lua = {
                         runtime = {
@@ -81,7 +89,7 @@ require('mason-lspconfig').setup({
         end,
         helm_ls = function()
             local helm_opts = {
-                capabilities = lsp_capabilities,
+                capabilities = lspconfig_defaults,
                 settings = {
                     ['helm-ls'] = {
                         logLevel = "info",
@@ -100,30 +108,30 @@ require('mason-lspconfig').setup({
         end,
         terraformls = function()
             require('lspconfig').terraformls.setup({
-                capabilities = lsp_capabilities,
-                settings = {
-                }
+                capabilities = lspconfig_defaults,
             })
         end,
-    },
-})
-
-local cmp = require('cmp')
-
-cmp.setup({
-    sources = {
-        { name = 'nvim_lsp' },
-    },
-    mapping = cmp.mapping.preset.insert({
-        ['<C-Space>'] = cmp.mapping.complete(),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }),
-        ['<C-e>'] = cmp.mapping.abort(),
-        ['<C-k>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-j>'] = cmp.mapping.scroll_docs(4),
-    }),
-    snippet = {
-        expand = function(args)
-            require('luasnip').lsp_expand(args.body)
+        elixirls = function()
+            require('lspconfig').elixirls.setup({
+                capabilities = lspconfig_defaults,
+            })
+        end,
+        gopls = function()
+            require('lspconfig').gopls.setup({
+                capabilities = lspconfig_defaults,
+            })
+        end,
+        pyright = function()
+            require('lspconfig').pyright.setup({
+                capabilities = lspconfig_defaults,
+                settings = {
+                    python = {
+                        analysis = {
+                            typeCheckingMode = "off"
+                        }
+                    }
+                }
+            })
         end,
     },
 })

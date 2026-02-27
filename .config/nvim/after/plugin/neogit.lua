@@ -1,4 +1,5 @@
 require('gitsigns').setup {
+    current_line_blame = true,
     signs = {
         add = { text = '+' },
         change = { text = '~' },
@@ -6,7 +7,6 @@ require('gitsigns').setup {
         topdelete = { text = '‾' },
         changedelete = { text = '~' },
     },
-    current_line_blame = true,
     on_attach = function(bufnr)
         local gs = package.loaded.gitsigns
 
@@ -38,7 +38,7 @@ require('gitsigns').setup {
         map('n', '<leader>hR', gs.reset_buffer)
         map('n', '<leader>hp', gs.preview_hunk)
         map('n', '<leader>hb', function() gs.blame_line { full = true } end)
-        map('n', '<leader>tb', gs.toggle_current_line_blame)
+        map('n', '<leader>tb', ':Gitsigns blame<CR>')
         map('n', '<leader>hd', gs.diffthis)
         map('n', '<leader>hD', function() gs.diffthis('~') end)
         map('n', '<leader>td', gs.toggle_deleted)
@@ -47,4 +47,26 @@ require('gitsigns').setup {
         map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
     end
 }
+--vim.keymap.set('n', '<leader>gs', ':Neogit kind=floating<CR>')
 vim.keymap.set('n', '<leader>gs', ':Neogit<CR>')
+require("neogit").setup({
+    git_services = {
+        ["github.com"] = {
+            pull_request = "https://github.com/${owner}/${repository}/compare/${branch_name}?expand=1",
+            commit = "https://github.com/${owner}/${repository}/commit/${oid}",
+            tree = "https://github.com/${owner}/${repository}/tree/${branch_name}",
+        },
+    },
+    integrations = {
+        telescope = true,
+        diffview = true
+    },
+})
+--require("octo").setup({
+--    enable_builtin = true
+--})
+--vim.keymap.set('n', '<leader>O', ':Octo<CR>')
+--vim.keymap.set('n', '<leader>Opc', ':Octo pr create<CR>')
+--vim.keymap.set('n', '<leader>Opl', ':Octo pr list<CR>')
+--vim.keymap.set('n', '<leader>Opr', ':Octo pr reload<CR>')
+--vim.keymap.set('n', '<leader>Opm', ':Octo pr merge<CR>')
