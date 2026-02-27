@@ -1,0 +1,11 @@
+term = xterm-256color
+shell-integration = zsh
+font-family = Fira Code
+font-size = 17
+font-thicken = true
+font-thicken-strength = 100
+alpha-blending = native
+theme = rose-pine-moon
+background-opacity = 0.9
+fullscreen = true
+adjust-cell-height = 20%
